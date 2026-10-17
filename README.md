@@ -1,53 +1,47 @@
 # Zero2Nine - Company Website
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-brightgreen)](https://zero2nine.github.io/)
+[![Live Site](https://img.shields.io/badge/Live%20Site-Visit-brightgreen)](https://www.zero2nine.co.za/)
 
-This repository contains the source code for the official company website of Zero2Nine, a software development company based in South Africa. The website showcases the company's services, expertise, founders, and provides contact information.
+The source for the website of Zero2Nine, a software studio in Johannesburg, South Africa. It's a single page covering the company's services, how it works, who it is, and a contact form.
 
-The website is hosted using GitHub Pages at [https://zero2nine.github.io/](https://zero2nine.github.io/).
+The site is hosted on GitHub Pages at [https://www.zero2nine.co.za/](https://www.zero2nine.co.za/).
 
-## Features
+## Sections
 
-*   **Responsive Design:** Adapts to various screen sizes (desktops, tablets, mobiles).
-*   **Informative Sections:** Includes Home (Hero), About Us, Services, Why Choose Us, and Contact sections.
-*   **Sticky Navigation:** A navigation bar that stays fixed at the top and changes appearance on scroll.
-*   **Smooth Scrolling:** Internal page links scroll smoothly to the target section.
-*   **Contact Form:** A functional contact form integrated with Formspree for message submission.
-*   **Dynamic Content:** Footer year updates automatically using JavaScript.
+*   **Hero** (`#top`): what Zero2Nine does, with links to start a project or see services.
+*   **Services** (`#services`): web, mobile, cloud, design and consulting work.
+*   **Process** (`#process`): how a project runs: discover, design, build, then launch and scale.
+*   **About** (`#about`): the studio, its founders and why to work with it.
+*   **Contact** (`#contact`): contact details and a message form.
 
-## Technology Stack
+## Technology
 
-*   **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-*   **CSS Framework:** [Bootstrap 5](https://getbootstrap.com/)
-*   **Icons:** [Bootstrap Icons](https://icons.getbootstrap.com/)
-*   **Form Backend:** [Formspree](https://formspree.io/)
-*   **Hosting:** [GitHub Pages](https://pages.github.com/)
+*   Plain HTML, CSS and JavaScript: `index.html`, `css/style.css` and `js/main.js`. There is no framework, build step or package manager.
+*   Fonts from [Google Fonts](https://fonts.google.com/) (Space Grotesk, Inter and JetBrains Mono). Icons are inline SVGs.
+*   The contact form posts to [Formspree](https://formspree.io/).
+*   Hosted on [GitHub Pages](https://pages.github.com/), with the custom domain set in `CNAME`.
 
-## Setup and Local Development
+## Running locally
 
-To run this website locally:
+```sh
+git clone https://github.com/Thulani/zero2nine.github.io.git
+cd zero2nine.github.io
+python3 -m http.server 8000
+```
 
-1.  **Clone the repository:**
-2.  **Navigate to the directory:**
-3.  **Open `index.html`:**
-    Simply open the `index.html` file in your preferred web browser.
+Then open http://localhost:8000. Opening `index.html` directly in a browser also works, but a local server is closer to how GitHub Pages serves the site.
 
-    *Note:* For full functionality, especially if testing form submissions or other features that might involve local requests in the future, running a simple local web server is recommended.
+## Contact form
 
-    **Example using Python 3:**
-    Then open `http://localhost:8000` (or the port indicated) in your browser.
-
-## Contact Form Setup
-
-The contact form (`#contact-form` in `index.html`) is configured to use Formspree.
+The form (`#contact-form` in `index.html`) sends messages to Formspree. The Formspree endpoint is the form's `action` attribute, and `js/main.js` submits it in the background and shows whether it worked.
 
 ## Deployment
 
-This website is automatically deployed via GitHub Pages whenever changes are pushed to the `main` branch (or the branch configured for GitHub Pages in the repository settings).
+GitHub Pages publishes the site automatically whenever changes are pushed to `main`.
 
 ## Contributing
 
-This repository is primarily for the official company website. Contributions are generally not expected. However, if you spot a bug or have a suggestion, feel free to open an issue.
+This repository is for the official company website, so contributions aren't generally expected. If you spot a bug or have a suggestion, feel free to open an issue.
 
 ## License
 
