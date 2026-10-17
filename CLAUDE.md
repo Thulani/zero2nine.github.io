@@ -12,15 +12,17 @@ Static, single-page marketing site for Zero2Nine (a South African software devel
 python3 -m http.server 8000   # then open http://localhost:8000
 ```
 
-Opening `index.html` directly also works, but a local server is closer to how GitHub Pages serves it (and is needed for the root-relative paths in `img/site.webmanifest`).
+Opening `index.html` directly also works, but a local server is closer to how GitHub Pages serves it.
 
 ## Architecture
 
-The site is three files: `index.html`, `css/style.css`, and `js/main.js`.
+The site is three files: `index.html`, `css/style.css`, and `js/main.js`. There is no CSS framework; the only external resource is Google Fonts (Space Grotesk for headings, Inter for body text, JetBrains Mono for labels).
 
-- **Bootstrap 5.3 and Bootstrap Icons come from the jsDelivr CDN**, not vendored copies. Layout uses Bootstrap grid/utility classes in the markup. `css/style.css` loads after Bootstrap and overrides parts of it: `.container` max-widths, plus a custom `.py-6` spacing utility that Bootstrap doesn't have.
-- **Theme colors are CSS custom properties** on `:root` in `style.css` (`--primary` navy `#1a2238`, `--accent` orange `#ff6a3d`, etc.). Use these instead of hard-coded colors.
-- **The page is one long document of `<section>`s** (`#hero`, `#about`, `#services`, `#why-us`, `#contact`) under a sticky `#header` navbar. Nav links are in-page anchors. `main.js` intercepts every `a[href^="#"]` for smooth scrolling, so any new `#` link must point to an element that exists.
-- **The contact form** (`#contact-form`) posts to Formspree. Its endpoint is the form's `action` attribute. `main.js` submits it with `fetch` and an `Accept: application/json` header, then reports the result with `alert()`. Field `name` attributes are what Formspree receives.
-- **`main.js` runs top-level code with no null checks.** It expects `#current-year` (footer year), `#contact-form`, and `#header` to exist. If you remove or rename any of them, update the script too.
-- **Favicons and the web manifest live in `img/`.** `index.html` references them directly.
+- **Brand colors come from the logo** (`img/zero2nine.png`): `--blue` `#336699` and `--orange` `#ff9933`, defined with the rest of the palette as custom properties on `:root` in `style.css`. Use the tokens rather than hard-coded colors. `#ff9933` fails contrast as text on white; use `--orange-600` for orange text, and put dark text (`--ink`) on orange buttons.
+- **The page is one long document of `<section>`s** (`#top` hero, `#services`, `#process`, `#about`, `#contact`) under a fixed `#header`. Nav links are in-page anchors. Smooth scrolling and the header offset come from CSS (`scroll-behavior`, `scroll-padding-top`), not JS.
+- **The logo mark** (the four squares) is an inline SVG `<symbol id="mark">` at the top of `<body>`. The footer reuses it with `<use href="#mark">`. The header uses the full PNG logo, which only reads on a light background.
+- **Scroll-in animation:** `main.js` adds a `js` class to `<html>`, and only then does CSS hide `.reveal` elements until an IntersectionObserver adds `.in`. Content stays visible without JS. Every animation is disabled under `prefers-reduced-motion`.
+- **The contact form** (`#contact-form`) posts to Formspree. Its endpoint is the form's `action` attribute. `main.js` submits it with `fetch` and shows the result in the `.form-status` live region. Field `name` attributes are what Formspree receives.
+- **`main.js` runs top-level code with no null checks.** It expects `#header` (with `.nav-toggle`), `#current-year`, and `#contact-form` (with `.form-status` and a submit button) to exist. If you remove or rename any of them, update the script too.
+- **Never write the contact email address whole in the HTML.** It's protected from scrapers: each `.email-link` carries `data-u` and `data-d`, and `main.js` builds the `mailto:` link and the visible text. Without JS, the link shows an "[at]"/"[dot]" version. Add new email links the same way.
+- **Favicons and the web manifest live in `img/`.** Icon paths inside `site.webmanifest` are relative to `img/`.
