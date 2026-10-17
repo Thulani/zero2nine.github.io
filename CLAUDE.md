@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Static, single-page marketing site for Zero2Nine (a South African software development company), hosted on GitHub Pages at https://zero2nine.github.io/. Pushing to `main` deploys it. There is no build step, package manager, linter, or test suite.
+Static, single-page marketing site for Zero2Nine (a South African software development company), hosted on GitHub Pages at https://www.zero2nine.co.za/ (custom domain set by `CNAME`). Pushing to `main` deploys it. Pages runs its default Jekyll build; `_config.yml` only lists repo-only files (such as this one) to leave off the live site. There is no build step, package manager, linter, or test suite.
 
 ## Running locally
 
